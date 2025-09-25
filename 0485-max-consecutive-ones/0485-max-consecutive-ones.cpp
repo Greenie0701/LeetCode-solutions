@@ -17,6 +17,7 @@ public:
                 count=0;
             }
         }
+        maxcount = max(maxcount, count);
         return maxcount;
     }
 };
