@@ -17,7 +17,7 @@ public:
             return;
         }
         // Find the  number of rotations which are required
-        k=n%k; 
+        k=k%n; 
         /* To rotate array by k positions, you may have perform the following operations:
            1. Reverse elements in array from 0 to n-k-1
            2. Reverse elements in array from n-k to n-1
