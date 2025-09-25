@@ -17,6 +17,7 @@ public:
                 count=0;
             }
         }
+        //Check whether all the elements in array are 1's
         maxcount = max(maxcount, count);
         return maxcount;
     }
