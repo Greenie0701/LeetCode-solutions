@@ -1,31 +1,28 @@
 class Solution {
 public:
     int findPeakElement(vector<int>& nums) {
+        if (nums.size() == 1) {
+            return 0;
+        }
+
         int low = 0;
-        int high= nums.size()-1;
-        int peak;
-        // Peak element is an element in a given array, where its 
-        // adjacent elements are lesser
+        int high = nums.size() - 1;
 
-        // log n which means binary search
-        while(low<=high){
-            // Calculate the mid
-            int mid = low + (high - low)/2;
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
 
-            // Check whether the peak occurs left i.e m < m-1
-            if(mid>0 && nums[mid]<nums[mid-1]){
-                high = mid-1;
-            }
-            // Check whether the peak occurs left i.e m < m+1
-            else if(mid<high && nums[mid]<nums[mid+1]){
-                low = mid+1;
-            }
-            // My mid is actually greater than both ends
-            else{
-                peak = mid;
-                break;
+            int left = (mid - 1 >= 0) ? nums[mid - 1] : INT_MIN;
+            int right = (mid + 1 < nums.size()) ? nums[mid + 1] : INT_MIN;
+
+            if (nums[mid] > left && nums[mid] > right) {
+                return mid;
+            } else if (nums[mid] < right) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
             }
         }
-        return peak;
+
+        return -1;
     }
 };
