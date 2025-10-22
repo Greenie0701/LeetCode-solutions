@@ -1,39 +1,31 @@
 class Solution {
 public:
+    int recursiveatoi(string s, int i, long long num, int sign){
+        // BaseCase
+        if(i>=s.size() || !isdigit(s[i])){
+            return (int)(num*sign);
+        }
+        num = num*10 + (s[i]-'0');
+        if(sign * num>=INT_MAX)return INT_MAX;
+        if(sign * num<=INT_MIN)return INT_MIN;
+        return recursiveatoi(s, i+1, num, sign);
+    }
     int myAtoi(string s) {
-        // Initialize index, sign, and result
-        int i = 0, sign = 1;
-         // Use long to handle overflow
-        long res = 0;
-
-        // Skip leading whitespaces
-        while (i < s.size() && s[i] == ' ') i++;
-
-        // Return 0 if only spaces are found
-        if (i == s.size()) return 0;
-
-        // Check for optional '+' or '-' sign
-        if (s[i] == '-') {
-            sign = -1;
-            i++;
-        } else if (s[i] == '+') {
-            i++;
+        int i=0;
+        int sign = 1;
+        // Check if the char is an empty
+        while(i<s.size() && s[i]==' ')i++;
+        // Predict the sign
+        if(i<s.size() && (s[i] == '+' || s[i] == '-')){
+            if(s[i]=='-'){
+                sign = -1;
+                i++;
+            }
+            else{
+                i++;
+            }
         }
-
-        // Convert characters to integer while valid digits
-        while (i < s.size() && isdigit(s[i])) {
-            res = res * 10 + (s[i] - '0');
-
-            // Clamp to INT_MAX if overflow occurs
-            if (sign * res > INT_MAX) return INT_MAX;
-
-            // Clamp to INT_MIN if underflow occurs
-            if (sign * res < INT_MIN) return INT_MIN;
-
-            i++;
-        }
-
-        // Return final result after applying sign
-        return (int)(sign * res);
+        // Recursively extract the number from the string
+        return recursiveatoi(s, i, 0, sign);
     }
 };
