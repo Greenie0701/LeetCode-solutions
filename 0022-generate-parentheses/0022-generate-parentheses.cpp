@@ -1,16 +1,16 @@
 class Solution {
 public:
-    void ParenthesesCombination(vector<string>& result, int open, int close, int size, string valid){
-        if(valid.length()==size*2){
+    void find(vector<string>& result, int n, int open, int close, string valid){
+        if(valid.length()==2*n){
             result.push_back(valid);
             return;
         }
-        if(open<size)ParenthesesCombination(result, open+1, close, size, valid+"(");
-        if(close<open)ParenthesesCombination(result, open, close+1, size, valid+")");
+        if(open<n)find(result, n, open+1, close, valid+"(");
+        if(close<open)find(result, n, open, close+1, valid+")")
     }
     vector<string> generateParenthesis(int n) {
         vector<string> result;
-        ParenthesesCombination(result, 0, 0, n, "");
+        find(result, n, 0, 0, "");
         return result;
     }
 };
