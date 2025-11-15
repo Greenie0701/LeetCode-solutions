@@ -16,13 +16,13 @@ public:
         // Try to represent divisor in terms of power 2
         while(n>=d){
             int count=0; // track how much time a divisor can be represented in terms of 2
-            while (n >= (d << (count + 1))) {
-                count++;
+            while (n >= (d << (count + 1))) { // Can be 3 * 2^count+1
+                count++; // Increment the count
             }
-            q+=(1L<<count);
-            n-=(d<<count);
+            q+=(1L<<count); // Add the 2^count(1L is must)
+            n-=(d<<count); // Remove the added count;
         }
-        if(!pos)q=-q;
+        if(!pos)q=-q; // Check the sign 
 
         if(q<INT_MIN)return INT_MIN;
         if(q>INT_MAX)return INT_MAX;
