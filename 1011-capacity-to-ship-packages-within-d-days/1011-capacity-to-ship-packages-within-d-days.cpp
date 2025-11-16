@@ -20,7 +20,7 @@ public:
     }
     int shipWithinDays(vector<int>& weights, int days) {
         // Find the range of capacity. It can hold either min element of capacity or max weight
-        int low = *min_element(weights.begin(), weights.end());
+        int low = *max_element(weights.begin(), weights.end());
         int high = accumulate(weights.begin(), weights.end(), 0);
         int ans = high;
         // Find the minimum capacity where all weights can be shipped
