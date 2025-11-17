@@ -8,7 +8,7 @@ public:
         int maxi = 0;
         while(r<size){
             if(nums[r]==0)zero++;
-            while(zero>k){
+            if(zero>k){
                 if(nums[l]==0)zero--;
                 l++;
             }
