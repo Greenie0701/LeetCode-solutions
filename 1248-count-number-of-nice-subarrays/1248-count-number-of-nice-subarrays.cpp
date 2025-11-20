@@ -1,13 +1,11 @@
 class Solution {
 public:
     int count(vector<int>& nums, int goal){
-        if(goal<0){
-            return 0;
-        }
+        if(goal<0)return 0;
+        int c=0;
         int l=0;
         int r=0;
         int end = nums.size();
-        int c=0;
         int sum=0;
         while(r<end){
             sum+=(nums[r]%2);
@@ -20,7 +18,7 @@ public:
         }
         return c;
     }
-    int numberOfSubarrays(vector<int>& nums, int k) {
-        return count(nums, k)-count(nums, k-1);
+    int numberOfSubarrays(vector<int>& nums, int goal) {
+        return(count(nums, goal)-count(nums, goal-1));
     }
 };
