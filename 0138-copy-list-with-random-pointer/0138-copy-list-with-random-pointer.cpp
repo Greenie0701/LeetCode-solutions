@@ -16,45 +16,48 @@ public:
 
 class Solution {
 public:
-    void insertcopynode(Node* head){
-        Node* temp = head;
-        while(temp!=NULL){
-            Node* nextnode = temp->next;
-            Node* copy = new Node(temp->val);
-            temp->next = copy;
-            copy->next = nextnode;
-            temp = nextnode;
-        }
-    }
-    void linkrandompointers(Node* head){
+
+    void createrandomnode(Node* head){
         Node* temp = head;
         while(temp!=NULL){
             Node* copy = temp->next;
-            if(temp->random!=NULL){
-                copy->random = temp->random->next;
+            if(temp->random==NULL){
+                copy->random = NULL;
             }else{
-                copy->random = nullptr;
+                copy->random = temp->random->next;
             }
-            temp = temp->next->next;
+            temp = copy->next;
         }
+        return;
     }
-    Node* extractcopyhead(Node* head){
+    void createcopynode(Node* head){
         Node* temp = head;
-        Node* dummyhead = new Node(-1);
-        Node* res = dummyhead;
+        Node* nextnode = NULL;
         while(temp!=NULL){
-            res->next = temp->next;
-            res = res->next;
-            temp->next = temp->next->next;
+            nextnode = temp->next;
+            Node* copy = new Node(temp->val);
+            temp->next = copy;
+            copy->next = nextnode;
+            temp = copy->next;
+        } 
+        return;
+    }
+    Node* extractcopynode(Node* head){
+        Node* dummy = new Node(-1);
+        Node* tail = dummy;
+        Node* temp = head;
+        while(temp!=NULL){
+            tail->next = temp->next;
+            temp->next  = temp->next->next;
             temp = temp->next;
+            tail = tail->next;
         }
-        return dummyhead->next;
+        return dummy->next;
     }
     Node* copyRandomList(Node* head) {
-        Node* temp = head;
-        insertcopynode(head);
-        linkrandompointers(head);
-        Node* copyhead = extractcopyhead(head);
-        return copyhead;
+        createcopynode(head);
+        createrandomnode(head);
+        Node* newhead = extractcopynode(head);
+        return newhead;
     }
 };
