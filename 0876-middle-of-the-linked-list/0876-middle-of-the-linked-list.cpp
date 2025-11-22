@@ -11,9 +11,8 @@
 class Solution {
 public:
     ListNode* middleNode(ListNode* head) {
-        ListNode* slow = head; // Moves single node per iteration
-        ListNode* fast = head; // Moves double node per iteration
-        // Iterate untill fast!=NULL
+        ListNode* slow = head;
+        ListNode* fast = head;
         while(fast!=NULL && fast->next!=NULL){
             slow = slow->next;
             fast = fast->next->next;
