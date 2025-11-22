@@ -4,8 +4,8 @@ public:
         int l=0;
         int r=0;
         unordered_map<int, int> m;
-        int len = 0;
         int end = fruits.size();
+        int len =0;
         while(r<end){
             m[fruits[r]]++;
             while(m.size()>2){
