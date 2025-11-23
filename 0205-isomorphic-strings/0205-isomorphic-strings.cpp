@@ -4,14 +4,14 @@ public:
         if(s.length()!=t.length()){
             return false;
         }
-        vector<int> freq1(256, -1);
-        vector<int> freq2(256, -1);
+        vector<int> hash1(256,-1);
+        vector<int> hash2(256,-1);
         for(int i=0; i<s.length(); i++){
-            if(freq1[s[i]]!=freq2[t[i]]){
+            if(hash1[s[i]]!=hash2[t[i]]){
                 return false;
             }
-            freq1[s[i]]=i;
-            freq2[t[i]]=i;
+            hash1[s[i]]=i;
+            hash2[t[i]]=i;
         }
         return true;
     }
