@@ -1,17 +1,17 @@
 class Solution {
 public:
     bool isIsomorphic(string s, string t) {
+        vector<int> hashs(256, -1);
+        vector<int> hasht(256, -1);
         if(s.length()!=t.length()){
             return false;
         }
-        vector<int> hash1(256,-1);
-        vector<int> hash2(256,-1);
         for(int i=0; i<s.length(); i++){
-            if(hash1[s[i]]!=hash2[t[i]]){
+            if(hashs[s[i]]!=hasht[t[i]]){
                 return false;
             }
-            hash1[s[i]]=i;
-            hash2[t[i]]=i;
+            hashs[s[i]]=i;
+            hasht[t[i]]=i;
         }
         return true;
     }
