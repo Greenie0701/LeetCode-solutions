@@ -17,11 +17,11 @@ public:
         }
         inorder(arr, node->left);
         arr.push_back(node->val);
-        inorder(arr, node->right);
+        inorder(arr,node->right);
     }
     vector<int> inorderTraversal(TreeNode* root) {
-        vector<int> arr;
-        inorder(arr, root);
-        return arr;
+        vector<int> result;
+        inorder(result, root);
+        return result;
     }
 };
