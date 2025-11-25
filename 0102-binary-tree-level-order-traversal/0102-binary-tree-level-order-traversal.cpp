@@ -14,7 +14,9 @@ public:
     vector<vector<int>> levelOrder(TreeNode* root) {
         queue<TreeNode*> q;
         vector<vector<int>> arr;
-        if(root==NULL)return arr;
+        if(root==NULL){
+            return arr;
+        }
         q.push(root);
         while(!q.empty()){
             int size = q.size();
