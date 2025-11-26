@@ -12,9 +12,8 @@
 class Solution {
 public:
     int check(TreeNode* root){
-        if(root==NULL){
-            return 0;
-        }
+        if(root==NULL)return 0;
+
         int lh = check(root->left);
         if(lh==-1)return -1;
         int rh = check(root->right);
