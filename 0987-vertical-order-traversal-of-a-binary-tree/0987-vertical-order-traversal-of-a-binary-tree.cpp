@@ -25,15 +25,15 @@ public:
             int x = node.second.first;
             int y = node.second.second;
             m[x][y].insert(node.first->val);
-            if(node.first->left!=NULL)q.push({node.first->left, {x-1, y+1}});
+            if(node.first->left!=NULL)q.push({node.first->left,{x-1,y+1}});
             if(node.first->right!=NULL)q.push({node.first->right, {x+1, y+1}});
         }
         for(auto p:m){
-            vector<int> col;
+            vector<int> level;
             for(auto q:p.second){
-                col.insert(col.end(), q.second.begin(), q.second.end());
+                level.insert(level.end(), q.second.begin(), q.second.end());
             }
-            arr.push_back(col);
+            arr.push_back(level);
         }
         return arr;
     }
