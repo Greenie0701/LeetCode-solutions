@@ -17,12 +17,13 @@ public:
         }
         int lh = findd(root->left, d);
         int rh = findd(root->right, d);
-
         d = max(d, lh+rh);
+
         return 1+max(lh, rh);
     }
+
     int diameterOfBinaryTree(TreeNode* root) {
-        int d = 0;
+        int d=0;
         findd(root, d);
         return d;
     }
