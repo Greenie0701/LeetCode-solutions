@@ -1,23 +1,25 @@
 class Solution {
 public:
     string minWindow(string s, string t) {
-        int count=0;
-        int mini=INT_MAX;
-        vector<int> hash(128, 0);
-        int l1 = s.length();
-        int l2 = t.length();
+        if(s.length()<t.length()){
+            return("");
+        }
+        int l = 0;
+        int r = 0;
+        int lens = s.length();
+        int lent = t.length();
         int start = -1;
-        int l=0;
-        int r=0;
-        int end = s.length();
-        for(int i=0; i<l2; i++){
+        int mini = INT_MAX;
+        int count = 0;
+        vector<int> hash(128, 0);
+        for(int i=0; i<lent; i++){
             hash[t[i]]++;
         }
-        while(r<end){
+        while(r<lens){
             if(hash[s[r]]>0)count++;
             hash[s[r]]--;
-            while(count==l2){
-                if(mini>(r-l+1)){
+            while(count==lent){
+                if((r-l+1)<mini){
                     mini = (r-l+1);
                     start = l;
                 }
