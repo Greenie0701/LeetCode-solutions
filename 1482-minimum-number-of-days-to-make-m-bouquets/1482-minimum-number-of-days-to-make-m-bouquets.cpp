@@ -17,7 +17,7 @@ public:
         return(boq>=m);
     }
     int minDays(vector<int>& arr, int m, int k) {
-        if(long long(m)*k>arr.size()){
+        if((long long)m*k>arr.size()){
             return -1;
         }
         int ans =-1;
