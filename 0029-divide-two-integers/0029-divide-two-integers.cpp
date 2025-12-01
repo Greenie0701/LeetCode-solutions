@@ -1,7 +1,7 @@
 class Solution {
 public:
     int divide(int dividend, int divisor) {
-        if(dividend==INT_MIN && divisor==-1){
+        if(dividend==INT_MIN&&divisor==-1){
             return INT_MAX;
         }
 
@@ -12,13 +12,14 @@ public:
         long q = 0;
 
         while(n>=d){
-            int count = 0;
+            int count=0;
             while(n>=(d<<(count+1))){
                 count++;
             }
             q+=(1L<<count);
             n-=(d<<count);
-        }
+        } 
+
         if(!pos)q=-q;
 
         if(q<INT_MIN)return INT_MIN;
