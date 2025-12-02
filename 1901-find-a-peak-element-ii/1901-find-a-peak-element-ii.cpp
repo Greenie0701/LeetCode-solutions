@@ -1,34 +1,31 @@
 class Solution {
 public:
-
-    int findmaxrow(vector<vector<int>>& mat, int col){
+    int findmax(vector<vector<int>>& mat, int col){
         int maxi = INT_MIN;
-        int index = -1;
-
+        int row = -1;
         for(int i=0; i<mat.size(); i++){
             if(mat[i][col]>maxi){
                 maxi = mat[i][col];
-                index = i;
+                row = i;
             }
         }
-        return index;
+        return row;
     }
 
     vector<int> findPeakGrid(vector<vector<int>>& mat) {
         int low = 0;
         int high = mat[0].size()-1;
-
         while(low<=high){
             int mid = low+(high-low)/2;
-            int row = findmaxrow(mat, mid);
+            int rowmax = findmax(mat, mid);
 
-            int left = mid-1<0?-1:mat[row][mid-1];
-            int right = mid+1>=mat[0].size()?-1:mat[row][mid+1];
+            int left = mid-1<0?-1:mat[rowmax][mid-1];
+            int right = mid+1>=mat[0].size()?-1:mat[rowmax][mid+1];
 
-            if(left<mat[row][mid]&&right<mat[row][mid]){
-                return{row, mid};
+            if(left<mat[rowmax][mid]&&right<mat[rowmax][mid]){
+                return{rowmax, mid};
             }
-            else if(left>mat[row][mid]){
+            else if(left>mat[rowmax][mid]){
                 high = mid-1;
             }
             else{
