@@ -1,24 +1,31 @@
 class Solution {
 public:
-    bool possible(vector<int>& weights, int cap, int days){
-        int req=1;
-        int sum=0;
-        for(int n:weights){
-            if(sum+n<=cap){
-                sum+=n;
-            }else{
-                sum=n;
-                req++;
+
+    bool possible(vector<int>& weights, int limit, int days){
+        int d = 1; // No of days req to fill the ship with limited weight
+        int sum = 0; // Filling the ship with weights
+        for(int i:weights){
+            if(sum+i<=limit){
+                sum+=i;
+            }
+            else if(d<days){
+                sum = i;
+                d++;
+            }
+            else{
+                return false;
             }
         }
-        return req<=days;
+        return true;
     }
+
     int shipWithinDays(vector<int>& weights, int days) {
         int low = *max_element(weights.begin(), weights.end());
-        int high = accumulate(weights.begin(), weights.end());
-        int ans=-1;
+        int high = accumulate(weights.begin(), weights.end(), 0);
+        int ans = 0;
         while(low<=high){
             int mid = low+(high-low)/2;
+
             if(possible(weights, mid, days)){
                 ans = mid;
                 high = mid-1;
