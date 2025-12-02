@@ -1,16 +1,17 @@
 class Solution {
 public:
-
-    bool possible(vector<int>& nums, int k, int limit){
+    bool possible(vector<int>& nums, int maxsum, int k){
+        int count =1;
         int sum = 0;
-        int num = 1;
-        for(int i=0; i<nums.size(); i++){
-            if(sum+nums[i]<=limit){
-                sum+=nums[i];
-            }else if(num<k){
-                num++;
-                sum=nums[i];
-            }else{
+        for(int i:nums){
+            if(sum+i<=maxsum){
+                sum+=i;
+            }
+            else if(count<k){
+                sum=i;
+                count++;
+            }
+            else{
                 return false;
             }
         }
@@ -20,18 +21,17 @@ public:
     int splitArray(vector<int>& nums, int k) {
         int low = *max_element(nums.begin(), nums.end());
         int high = accumulate(nums.begin(), nums.end(), 0);
-        int ans = -1;
+        int ans = 0;
         while(low<=high){
             int mid = low+(high-low)/2;
 
-            if(possible(nums, k, mid)){
+            if(possible(nums,mid, k)){
                 ans = mid;
                 high = mid-1;
             }
             else{
                 low = mid+1;
             }
-
         }
         return ans;
     }
