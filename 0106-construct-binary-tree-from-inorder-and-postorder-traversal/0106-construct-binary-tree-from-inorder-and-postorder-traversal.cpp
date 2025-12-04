@@ -22,14 +22,14 @@ public:
         if(ps>pe||is>ie){
             return NULL;
         }
-
         int rootindex = inmap[postorder[pe]];
         int left = rootindex-is;
 
         TreeNode* root = new TreeNode(postorder[pe]);
 
-        root->left = build(postorder, pe-left, pe-1, inorder, is, rootindex-1, inmap);
-        root->right = build(postorder, pe-left-1, 0, inorder, rootindex+1, ie, inmap);
+        root->left = build(postorder, ps, ps+left-1, inorder, is, rootindex-1, inmap);
+        root->right = build(postorder, ps+left, pe-1, inorder, rootindex+1, ie, inmap);
+
+        return root;
     }
-    
 };
