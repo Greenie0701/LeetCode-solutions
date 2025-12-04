@@ -23,9 +23,9 @@ public:
             for(int i=0; i<size; i++){
                 TreeNode* node = q.front();
                 q.pop();
-                if(i==0)arr.push_back(node->val);
-                if(node->right!=NULL)q.push(node->right);
+                if(i==size-1)arr.push_back(node->val);
                 if(node->left!=NULL)q.push(node->left);
+                if(node->right!=NULL)q.push(node->right);
             }
         }
         return arr;
