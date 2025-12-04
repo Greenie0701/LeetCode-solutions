@@ -1,6 +1,6 @@
 class Solution {
 public:
-    bool palindrome(int start, int end, string s){
+    bool palin(string s, int start, int end){
         while(start<end){
             if(s[start]!=s[end]){
                 return false;
@@ -10,15 +10,15 @@ public:
         }
         return true;
     }
-    void find(vector<string>& ds, vector<vector<string>>& result, string s, int index){
+    void generate( vector<vector<string>>& result, vector<string>& ds, int index, string s){
         if(index==s.length()){
             result.push_back(ds);
             return;
         }
         for(int i=index; i<s.length(); i++){
-            if(palindrome(index, i, s)){
+            if(palin(s, index, i)){
                 ds.push_back(s.substr(index, i-index+1));
-                find(ds, result, s, i+1);
+                generate(result, ds, i+1, s);
                 ds.pop_back();
             }
         }
@@ -26,7 +26,7 @@ public:
     vector<vector<string>> partition(string s) {
         vector<string> ds;
         vector<vector<string>> result;
-        find(ds, result, s, 0);
+        generate(result, ds, 0, s);
         return result;
     }
 };
