@@ -16,24 +16,24 @@ public:
         if(root==NULL){
             return arr;
         }
-        queue<pair<TreeNode*, pair<int, int>>> q;
+        queue<pair<TreeNode*,pair<int, int>>> q;
         q.push({root, {0,0}});
-        map<int,map<int, multiset<int>>> m;
+        map<int, map<int, multiset<int>>> m;
         while(!q.empty()){
             auto node = q.front();
+            q.pop();
             int x = node.second.first;
             int y = node.second.second;
-            q.pop();
             m[x][y].insert(node.first->val);
-            if(node.first->left!=NULL)q.push({node.first->left, {x-1, y+1}});
-            if(node.first->right!=NULL)q.push({node.first->right, {x+1, y+1}});
+            if(node.first->left!=NULL)q.push({node.first->left,{x-1, y+1}});
+            if(node.first->right!=NULL)q.push({node.first->right,{x+1, y+1}});
         }
-        for(auto p:m){
-            vector<int> level;
-            for(auto point:p.second){
-                level.insert(level.end(), point.second.begin(), point.second.end());
+        for(auto point:m){
+            vector<int> line;
+            for(auto p:point.second){
+                line.insert(line.end(), p.second.begin(), p.second.end());
             }
-            arr.push_back(level);
+            arr.push_back(line);
         }
         return arr;
     }
