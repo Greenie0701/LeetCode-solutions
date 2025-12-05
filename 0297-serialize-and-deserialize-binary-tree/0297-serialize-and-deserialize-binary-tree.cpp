@@ -49,18 +49,12 @@ public:
             TreeNode* node = q.front();
             q.pop();
             getline(s, str, ',');
-            if(str=="#"){
-                node->left = NULL;
-            }
-            else{
+            if(str!="#"){
                 node->left = new TreeNode(stoi(str));
                 q.push(node->left);
             }
             getline(s, str, ',');
-            if(str=="#"){
-                node->right = NULL;
-            }
-            else{
+            if(str!="#"){
                 node->right = new TreeNode(stoi(str));
                 q.push(node->right);
             }
