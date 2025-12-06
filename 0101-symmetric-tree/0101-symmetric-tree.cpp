@@ -11,15 +11,16 @@
  */
 class Solution {
 public:
-    bool checksym(TreeNode* left, TreeNode* right){
+
+    bool check(TreeNode* left, TreeNode* right){
         if(left==NULL||right==NULL){
             return(left==right);
         }
         if(left->val!=right->val)return false;
-        return(checksym(left->left, right->right)&&checksym(left->right, right->left));
+        return(check(left->left, right->right)&&check(left->right, right->left));
     }
 
     bool isSymmetric(TreeNode* root) {
-        return(root==NULL||checksym(root->left, root->right));
+        return(root==NULL||check(root->left, root->right));
     }
 };
