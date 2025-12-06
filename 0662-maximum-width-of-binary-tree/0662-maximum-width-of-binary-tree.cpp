@@ -17,22 +17,22 @@ public:
             return 0;
         }
         queue<pair<TreeNode*, unsigned long long>> q;
-        q.push({root, 0});
-        int first = 0; 
-        int last = 0;
+        q.push({root,0});
         while(!q.empty()){
             int size = q.size();
+            unsigned long long first = 0;
+            unsigned long long last =0;
             unsigned long long minindex = q.front().second;
             for(int i=0; i<size; i++){
                 auto node = q.front();
                 q.pop();
-                unsigned long long curr = node.second - minindex;
+                unsigned long long curr = node.second-minindex;
                 if(i==0)first = curr;
                 if(i==size-1)last = curr;
                 if(node.first->left!=NULL)q.push({node.first->left, 2*curr+1});
                 if(node.first->right!=NULL)q.push({node.first->right, 2*curr+2});
             }
-            width = max(int(width), int(last-first+1));
+            width = max(int(width), int(last)-int(first)+1);
         }
         return int(width);
     }
