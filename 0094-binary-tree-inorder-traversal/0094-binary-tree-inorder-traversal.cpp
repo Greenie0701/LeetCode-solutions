@@ -22,7 +22,7 @@ public:
             else{
                 TreeNode* prev = curr->left;
                 while(prev->right!=NULL&&prev->right!=curr){
-                    prev=prev->right;
+                    prev = prev->right;
                 }
                 if(prev->right==NULL){
                     prev->right = curr;
@@ -30,7 +30,7 @@ public:
                 }
                 else{
                     inorder.push_back(curr->val);
-                    prev->right = NULL;
+                    prev->right=NULL;
                     curr = curr->right;
                 }
             }
