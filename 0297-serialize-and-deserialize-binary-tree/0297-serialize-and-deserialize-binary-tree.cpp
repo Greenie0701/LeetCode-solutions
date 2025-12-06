@@ -15,7 +15,7 @@ public:
         if(root==NULL){
             return "";
         }
-        string s="";
+        string s;
         queue<TreeNode*> q;
         q.push(root);
         while(!q.empty()){
@@ -23,7 +23,8 @@ public:
             q.pop();
             if(node==NULL){
                 s.append("#,");
-            }else{
+            }
+            else{
                 s.append(to_string(node->val)+',');
             }
             if(node!=NULL){
@@ -41,19 +42,19 @@ public:
         }
         stringstream s(data);
         string str;
-        getline(s, str, ',');
-        TreeNode* root = new TreeNode(stoi(str));
+        getline(s, str,',');
         queue<TreeNode*> q;
+        TreeNode* root = new TreeNode(stoi(str));
         q.push(root);
         while(!q.empty()){
             TreeNode* node = q.front();
             q.pop();
-            getline(s, str, ',');
+            getline(s, str,',');
             if(str!="#"){
                 node->left = new TreeNode(stoi(str));
                 q.push(node->left);
             }
-            getline(s, str, ',');
+            getline(s, str,',');
             if(str!="#"){
                 node->right = new TreeNode(stoi(str));
                 q.push(node->right);
