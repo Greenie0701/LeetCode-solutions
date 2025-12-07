@@ -28,13 +28,13 @@ public:
                     prev = prev->right;
                 }
                 if(prev->right==NULL){
-                    prev->right=curr;
+                    prev->right = curr;
                     curr = curr->left;
                 }
                 else{
                     inorder.push_back(curr->val);
-                    curr = curr->right;
                     prev->right = NULL;
+                    curr = curr->right;
                 }
             }
         }
