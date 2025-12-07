@@ -18,6 +18,7 @@ public:
         }
         return build(postorder, 0, postorder.size()-1, inorder, 0, inorder.size()-1, inmap);
     }
+
     TreeNode* build(vector<int>& postorder, int ps, int pe, vector<int>& inorder, int is, int ie, unordered_map<int, int>& inmap){
         if(ps>pe||is>ie){
             return NULL;
