@@ -12,35 +12,33 @@
 class Solution {
 public:
 
-    int totalnodes(TreeNode* root){
-        if(root==NULL){
-            return 0;
-        }
-        int leftnodes = findleftnodes(root);
-        int rightnodes = findrightnodes(root);
-        if(leftnodes==rightnodes)return((1<<(leftnodes))-1);
-        return(1+totalnodes(root->left)+totalnodes(root->right));
-    }
-
-    int findleftnodes(TreeNode* root){
+    int countleft(TreeNode* root){
         int d=0;
         while(root!=NULL){
-            d++;
             root=root->left;
+            d++;
         }
         return d;
     }
 
-    int findrightnodes(TreeNode* root){
+    int countright(TreeNode* root){
         int d=0;
         while(root!=NULL){
-            d++;
             root=root->right;
+            d++;
         }
         return d;
     }
 
     int countNodes(TreeNode* root) {
-        return totalnodes(root);
+        if(root==NULL){
+            return 0;
+        }
+        int left = countleft(root);
+        int right = countright(root);
+
+        if(left==right)return((1<<left)-1);
+
+        return(1+countNodes(root->left)+countNodes(root->right));
     }
 };
