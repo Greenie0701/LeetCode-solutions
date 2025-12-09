@@ -15,17 +15,17 @@ public:
         if(root==NULL){
             return "";
         }
-        string s;
+        string s="";
         queue<TreeNode*> q;
         q.push(root);
         while(!q.empty()){
             TreeNode* node = q.front();
             q.pop();
-            if(node==NULL){
-                s.append("#,");
+            if(node!=NULL){
+                s.append(to_string(node->val)+",");
             }
             else{
-                s.append(to_string(node->val)+',');
+                s.append("#,");
             }
             if(node!=NULL){
                 q.push(node->left);
@@ -38,7 +38,7 @@ public:
     // Decodes your encoded data to tree.
     TreeNode* deserialize(string data) {
         if(data.length()==0){
-            return NULL;
+            return 0;
         }
         stringstream s(data);
         string str;
@@ -51,12 +51,12 @@ public:
             q.pop();
             getline(s, str,',');
             if(str!="#"){
-                node->left = new TreeNode(stoi(str));
+                node->left=new TreeNode(stoi(str));
                 q.push(node->left);
             }
             getline(s, str,',');
             if(str!="#"){
-                node->right = new TreeNode(stoi(str));
+                node->right=new TreeNode(stoi(str));
                 q.push(node->right);
             }
         }
