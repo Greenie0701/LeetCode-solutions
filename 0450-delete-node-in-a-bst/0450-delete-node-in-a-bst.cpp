@@ -12,13 +12,13 @@
 class Solution {
 public:
 
-    TreeNode* findleftright(TreeNode* root){
-        TreeNode* prev = NULL;
+    TreeNode* getleftright(TreeNode* root){
+        TreeNode* leaf = NULL;
         while(root!=NULL){
-            prev = root;
+            leaf = root;
             root=root->right;
         }
-        return prev;
+        return leaf;
     }
 
     TreeNode* delnode(TreeNode* root){
@@ -28,18 +28,18 @@ public:
         if(root->right==NULL){
             return root->left;
         }
-        TreeNode* rightchild = root->right;
-        TreeNode* leftchild = root->left;
-        
-        TreeNode* leftright = findleftright(leftchild);
+        TreeNode* right = root->right;
+        TreeNode* left = root->left;
 
-        leftright->right = rightchild;
-        return leftchild;
+        TreeNode* leftright = getleftright(left);
+
+        leftright->right = right;
+        return left;
     }
 
     TreeNode* deleteNode(TreeNode* root, int key) {
         if(root==NULL){
-            return NULL;
+            return root;
         }
         if(root->val==key){
             return delnode(root);
