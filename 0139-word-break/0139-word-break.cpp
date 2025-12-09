@@ -1,13 +1,12 @@
 class Solution {
 public:
     bool wordBreak(string s, vector<string>& wordDict) {
-        int size=s.length();
-        vector<bool> dp(size+1, false);
-        dp[size]=true;
-        for(int i=size-1; i>=0; i--){
-            for(string word:wordDict){
-                if(word.size()+i<=s.length() && word==s.substr(i, word.length())){
-                    dp[i] = dp[i+word.length()];
+        vector<bool> dp(s.length()+1, false);
+        dp[s.length()]=true;
+        for(int i=s.length()-1; i>=0; i--){
+            for(auto w:wordDict){
+                if(i+w.length()<=s.length() && w==s.substr(i, w.length())){
+                    dp[i]=dp[i+w.length()];
                 }
                 if(dp[i]){
                     break;
