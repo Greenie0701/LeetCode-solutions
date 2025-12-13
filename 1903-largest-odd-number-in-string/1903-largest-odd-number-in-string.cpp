@@ -1,29 +1,17 @@
 class Solution {
 public:
     string largestOddNumber(string num) {
-        int index = num.size()-1;
-        while(index>=0){
-            if(isdigit(num[index]))break;
+        string result="";
+        int index = num.length()-1;
+        while(index>=0&&(isdigit(num[index])&&(num[index]-'0')%2!=1)){
             index--;
         }
         if(index<0){
-            return "";
+            return result;
         }
-        while(index>=0){
-            if((num[index]-'0')%2==1)break;
-            index--;
-        }
-        if(index<0){
-            return "";
-        }
-        int start = 0;
-        while(start<index){
-            if(!isdigit(num[start])){
-                start++;
-            }else{
-                break;
-            }
-        }
-        return num.substr(start, index-start+1);
+        int start=0;
+        while(start<index&&num[start]==' ')start++;
+        result = num.substr(start, index-start+1);
+        return result;
     }
 };
