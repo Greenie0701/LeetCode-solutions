@@ -3,7 +3,7 @@ public:
     string largestOddNumber(string num) {
         string result="";
         int index = num.length()-1;
-        while(index>=0&&(isdigit(num[index])&&(num[index]-'0')%2!=1)){
+        while(index>=0&&(!isdigit(num[index])||(num[index]-'0')%2!=1)){
             index--;
         }
         if(index<0){
@@ -11,6 +11,7 @@ public:
         }
         int start=0;
         while(start<index&&num[start]==' ')start++;
+        while(start<index&&num[start]=='0')start++;
         result = num.substr(start, index-start+1);
         return result;
     }
