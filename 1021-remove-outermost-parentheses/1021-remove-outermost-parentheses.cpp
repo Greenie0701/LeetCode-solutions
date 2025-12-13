@@ -1,26 +1,21 @@
 class Solution {
 public:
     string removeOuterParentheses(string s) {
-        // Level represent the nested paranthesis
         int level = 0;
-        string ans = "";
-        // Iterate through every character
-        for(char ch : s){
-            if(ch=='('){
-                // Check if this is a primitive string
+        string result = "";
+        for(char c:s){
+            if(c=='('){
                 if(level>0){
-                    ans+=ch;
+                    result+=c;
                 }
                 level++;
-            }
-            else if(ch==')'){
-                //decrement the level 
+            }else{
                 level--;
                 if(level>0){
-                    ans+=ch;
+                    result+=c;
                 }
             }
         }
-        return ans;
+        return result;
     }
 };
