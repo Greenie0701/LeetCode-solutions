@@ -12,12 +12,9 @@
 class Solution {
 public:
     int kthSmallest(TreeNode* root, int k) {
-        if(root==NULL){
-            return 0;
-        }
-        int count = 0;
-        int val =0;
         TreeNode* curr = root;
+        int val = 0; 
+        int count =0;
         while(curr!=NULL){
             if(curr->left==NULL){
                 count++;
@@ -31,14 +28,13 @@ public:
                 }
                 if(prev->right==NULL){
                     prev->right = curr;
-                    curr=curr->left;
+                    curr = curr->left;
                 }
                 else{
                     count++;
                     prev->right=NULL;
                     if(count==k)val = curr->val;
                     curr = curr->right;
-
                 }
             }
         }
