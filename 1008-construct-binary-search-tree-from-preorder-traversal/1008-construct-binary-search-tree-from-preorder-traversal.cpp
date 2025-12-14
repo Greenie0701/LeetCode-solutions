@@ -13,20 +13,17 @@ class Solution {
 public:
     TreeNode* bstFromPreorder(vector<int>& preorder) {
         int index = 0;
-        return buildtree(index, preorder, INT_MAX);
+        return buildtree(preorder, index, INT_MAX);
     }
 
-    TreeNode* buildtree(int& index, vector<int>& arr, int bound){
-        if(index==arr.size()||arr[index]>bound){
+    TreeNode* buildtree(vector<int>& preorder, int& index, int bound){
+        if(index==preorder.size()||preorder[index]>bound){
             return NULL;
         }
-
-        TreeNode* node = new TreeNode(arr[index]);
+        TreeNode* root = new TreeNode(preorder[index]);
         index++;
-
-        node->left = buildtree(index, arr, node->val);
-        node->right = buildtree(index, arr, bound);
-
-        return node;
+        root->left = buildtree(preorder, index, root->val);
+        root->right = buildtree(preorder, index, bound);
+        return root;
     }
 };
