@@ -12,29 +12,28 @@
 class Solution {
 public:
 
-    TreeNode* getleftright(TreeNode* root){
-        TreeNode* leaf = NULL;
-        while(root!=NULL){
-            leaf = root;
-            root=root->right;
+    TreeNode* getrightchild(TreeNode* node){
+        TreeNode* prev = NULL;
+        while(node!=NULL){
+            prev = node;
+            node = node->right;
         }
-        return leaf;
+        return prev;
     }
-
-    TreeNode* delnode(TreeNode* root){
-        if(root->left==NULL){
-            return root->right;
+    
+    TreeNode* delnode(TreeNode* node){
+        if(node->left==NULL){
+            return node->right;
         }
-        if(root->right==NULL){
-            return root->left;
+        if(node->right==NULL){
+            return node->left;
         }
-        TreeNode* right = root->right;
-        TreeNode* left = root->left;
+        TreeNode* rightchild = node->right;
+        TreeNode* leftchild = node->left;
+        TreeNode* leftrightchild = getrightchild(leftchild);
 
-        TreeNode* leftright = getleftright(left);
-
-        leftright->right = right;
-        return left;
+        leftrightchild->right = rightchild;
+        return leftchild;
     }
 
     TreeNode* deleteNode(TreeNode* root, int key) {
