@@ -1,14 +1,14 @@
 class Solution {
 public:
 
-    void dfs(int row, int col, vector<vector<char>>& board, vector<vector<int>>& visited,
-    vector<int>& drow, vector<int>& dcol){
-        visited[row][col]=1;
+    void dfs(int r, int c, vector<vector<char>>& board,  vector<vector<int>>& visited,
+    vector<int>& drow,  vector<int>& dcol){
+        visited[r][c]=1;
         for(int i=0; i<4; i++){
-            int r = row+drow[i];
-            int c = col+dcol[i];
-            if(r>=0&&r<board.size()&&c>=0&&c<board[0].size()&&!visited[r][c]&&board[r][c]=='O'){
-                dfs(r, c, board, visited, drow, dcol);
+            int row = r+drow[i];
+            int col = c+dcol[i];
+            if(row>=0&&row<board.size()&&col>=0&&col<board[0].size()&&!visited[row][col]&&board[row][col]=='O'){
+                dfs(row, col, board, visited, drow, dcol);
             }
         }
     }
@@ -17,28 +17,30 @@ public:
         int row = board.size();
         int col = board[0].size();
         vector<vector<int>> visited(row, vector<int>(col, 0));
+        // Directional array
         vector<int> drow = {1, -1, 0, 0};
         vector<int> dcol = {0, 0, 1, -1};
-        for(int i=0; i<col; i++){
-            if(!visited[0][i]&&board[0][i]=='O'){
-                dfs(0, i, board, visited, drow, dcol);
+        // Search in the first and last row boundary for O
+        for(int j=0; j<col; j++){
+            if(board[0][j]=='O'&&!visited[0][j]){
+                dfs(0, j, board, visited, drow, dcol);
             }
-            if(!visited[row-1][i]&&board[row-1][i]=='O'){
-                dfs(row-1, i, board, visited, drow, dcol);
+            if(board[row-1][j]=='O'&&!visited[row-1][j]){
+                dfs(row-1, j, board, visited, drow, dcol);
             }
-        } 
+        }
         for(int i=0; i<row; i++){
-            if(!visited[i][0]&&board[i][0]=='O'){
+            if(board[i][0]=='O'&&!visited[i][0]){
                 dfs(i, 0, board, visited, drow, dcol);
             }
-            if(!visited[i][col-1]&&board[i][col-1]=='O'){
+            if(board[i][col-1]=='O'&&!visited[i][col-1]){
                 dfs(i, col-1, board, visited, drow, dcol);
             }
-        } 
+        }
 
         for(int i=0; i<row; i++){
             for(int j=0; j<col; j++){
-                if(!visited[i][j]&&board[i][j]=='O'){
+                if(board[i][j]=='O'&&!visited[i][j]){
                     board[i][j]='X';
                 }
             }
