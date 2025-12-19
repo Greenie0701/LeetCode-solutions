@@ -9,12 +9,12 @@ public:
             for(int j=0; j<col; j++){
                 if(mat[i][j]==0){
                     dist[i][j]=0;
-                    q.push({{i, j}, 0});
+                    q.push({{i,j},0});
                 }
             }
         }
-        vector<int> drow={1, -1, 0, 0};
-        vector<int> dcol={0, 0, 1, -1};
+        vector<int> drow = {1, -1, 0, 0};
+        vector<int> dcol = {0, 0, 1, -1};
         while(!q.empty()){
             auto val = q.front();
             q.pop();
@@ -24,8 +24,8 @@ public:
             for(int i=0; i<4; i++){
                 int nrow = r+drow[i];
                 int ncol = c+dcol[i];
-                if(nrow>=0&&nrow<row&&ncol>=0&&ncol<col&&dist[nrow][ncol]==-1){
-                    dist[nrow][ncol] = d+1;
+                if(nrow>=0&&nrow<row&&ncol>=0&&ncol<col&&dist[nrow][ncol]==-1&&mat[nrow][ncol]==1){
+                    dist[nrow][ncol]=d+1;
                     q.push({{nrow, ncol}, d+1});
                 }
             }
