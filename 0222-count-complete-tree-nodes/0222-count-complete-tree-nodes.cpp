@@ -13,31 +13,32 @@ class Solution {
 public:
 
     int countleft(TreeNode* root){
-        int d=0;
+        int c=0;
         while(root!=NULL){
+            c++;
             root=root->left;
-            d++;
         }
-        return d;
+        return c;
     }
 
     int countright(TreeNode* root){
-        int d=0;
+        int c=0;
         while(root!=NULL){
+            c++;
             root=root->right;
-            d++;
         }
-        return d;
+        return c;
     }
 
     int countNodes(TreeNode* root) {
         if(root==NULL){
             return 0;
         }
-        int left = countleft(root);
-        int right = countright(root);
 
-        if(left==right)return((1<<left)-1);
+        int leftnodes = countleft(root);
+        int rightnodes = countright(root);
+
+        if(rightnodes==leftnodes)return((1<<leftnodes)-1);
 
         return(1+countNodes(root->left)+countNodes(root->right));
     }
