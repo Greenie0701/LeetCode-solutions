@@ -1,42 +1,39 @@
 class Solution {
 public:
     int orangesRotting(vector<vector<int>>& grid) {
-        int row = grid.size();
-        int col = grid[0].size();
-        vector<vector<int>> rotten(row, vector<int>(col, 0));
-        int time = 0;
+        int m = grid.size();
+        int n = grid[0].size();
+        vector<vector<int>> rotten(m, vector<int>(n, 0));
         queue<pair<pair<int, int>, int>> q;
-        for(int i=0; i<row; i++){
-            for(int j=0; j<col; j++){
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
                 if(grid[i][j]==2){
                     rotten[i][j]=2;
                     q.push({{i, j},0});
                 }
             }
         }
-        vector<int> drow = {1, -1, 0, 0};
+        int time = 0;
+        vector<int> drow = {1, -1, 0, 0}; 
         vector<int> dcol = {0, 0, 1, -1};
         while(!q.empty()){
-            auto rot = q.front();
+            int x = q.front().first.first;
+            int y = q.front().first.second;
+            int t = q.front().second;
             q.pop();
-            int r = rot.first.first;
-            int c = rot.first.second;
-            int t = rot.second;
-            time = max(time, t);
+            time = max(t, time);
             for(int i=0; i<4; i++){
-                int nrow = r+drow[i];
-                int ncol = c+dcol[i];
-                if(nrow>=0&&nrow<row&&ncol>=0&&ncol<col&&rotten[nrow][ncol]!=2&&grid[nrow][ncol]==1){
-                    rotten[nrow][ncol] =2;
-                    q.push({{nrow, ncol}, t+1});
+                int r = x+drow[i];
+                int c = y+dcol[i];
+                if(r>=0&&r<m&&c>=0&&c<n&&!rotten[r][c]&&grid[r][c]==1){
+                    q.push({{r, c}, t+1});
+                    rotten[r][c]=2;
                 }
             }
         }
-        for(int i=0; i<row; i++){
-            for(int j=0; j<col; j++){
-                if(grid[i][j]==1&&rotten[i][j]!=2){
-                    return -1;
-                }
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(grid[i][j]==1&&rotten[i][j]!=2)return -1;
             }
         }
         return time;
