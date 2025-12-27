@@ -1,8 +1,7 @@
 class Solution {
 public:
-
     vector<vector<string>> result;
-    unordered_map<string, int> transform;
+    unordered_map<string, int> m;
     int len;
     string b;
 
@@ -13,12 +12,12 @@ public:
             reverse(seq.begin(), seq.end());
             return;
         }
-        int step = transform[word];
+        int step = m[word];
         for(int i=0; i<len; i++){
             char ch = word[i];
-            for(char c='a'; c<='z'; c++){
+            for(char c = 'a'; c<='z'; c++){
                 word[i] = c;
-                if(transform.find(word)!=transform.end()&&transform[word]+1==step){
+                if(m.find(word)!=m.end()&&m[word]+1==step){
                     seq.push_back(word);
                     dfs(word, seq);
                     seq.pop_back();
@@ -29,49 +28,36 @@ public:
     }
 
     vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
-        // Queue to perform BFS
-        queue<pair<string, int>> q;
-        // Set to track unique set of transforms
         unordered_set<string> s(wordList.begin(), wordList.end());
-        // If no endword found, no transformation possible, so return earlier
-        if(s.find(endWord)==s.end())return result;
-        // Start with the beginWord
+        queue<pair<string, int>> q;
         q.push({beginWord, 0});
-        // Mark the level
-        transform[beginWord] = 0;
-        // Remove the word from set to avoid duplicate transformations
-        s.erase(beginWord);
-        // Get the len of the word
-        len = beginWord.length();
+        m[beginWord] = 0;
         b = beginWord;
-        // Perform BFS
+        s.erase(beginWord);
+        len = beginWord.size();
         while(!q.empty()){
             string word = q.front().first;
             int step = q.front().second;
             q.pop();
-            // Any where you find the endword pls break this
-            // Try replacing every char in the word and check it is valid possible transformation
+            if(word==endWord)break;
             for(int i=0; i<len; i++){
-                // Save the org char
                 char ch = word[i];
-                for(char c='a'; c<='z'; c++){
+                for(char c = 'a'; c<='z'; c++){
                     word[i] = c;
                     if(s.find(word)!=s.end()){
                         q.push({word, step+1});
                         s.erase(word);
-                        transform[word] = step+1;
+                        m[word] = step+1;
                     }
                 }
                 word[i] = ch;
             }
         }
-
-        if(transform.find(endWord)!=transform.end()){
-            vector<string> seq;
+        vector<string> seq;
+        if(m.find(endWord)!=m.end()){
             seq.push_back(endWord);
             dfs(endWord, seq);
         }
-
         return result;
     }
 };
