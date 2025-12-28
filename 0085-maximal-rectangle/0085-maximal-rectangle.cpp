@@ -1,46 +1,45 @@
 class Solution {
 public:
-    int maxi(vector<int>& arr){
-        int max_area = 0;
-        int nse = arr.size();
-        int pse = -1;
-        stack<int> s;
+
+    int area(vector<int>& arr){
+        int maxi = 0;
+        vector<int> s;
+        int nse = 0;
+        int pse = 0;
+        int ele = 0;
         for(int i=0; i<arr.size(); i++){
-            while(!s.empty()&&arr[s.top()]>arr[i]){
+            while(!s.empty()&&arr[s.back()]>arr[i]){
                 nse = i;
-                int prev = arr[s.top()];
-                s.pop();
-                pse = s.empty()?-1:s.top();
-                max_area = max(max_area, prev*(nse-pse-1));
+                ele = arr[s.back()];
+                s.pop_back();
+                pse = s.empty()?-1:s.back();
+                maxi = max(maxi, ele*(nse-pse-1));
             }
-            s.push(i);
+            s.push_back(i);
         }
         while(!s.empty()){
             nse = arr.size();
-            int pre = arr[s.top()];
-            s.pop();
-            pse = s.empty()?-1:s.top();
-            max_area = max(max_area, pre*(nse-pse-1));
+            ele = arr[s.back()];
+            s.pop_back();
+            pse = s.empty()?-1:s.back();
+            maxi = max(maxi, ele*(nse-pse-1));
         }
-        return max_area;
-
+        return maxi;
     }
+
     int maximalRectangle(vector<vector<char>>& matrix) {
-        // Initialise a prefix sum 
         vector<vector<int>> prefix_sum(matrix.size(), vector<int>(matrix[0].size(), 0));
         int max_area = 0;
-        int row = matrix.size();
-        int col = matrix[0].size();
-        for(int j=0; j<col; j++){
+        for(int j=0; j<matrix[0].size(); j++){
             int sum = 0;
-            for(int i=0; i<row; i++){
+            for(int i=0; i<matrix.size(); i++){
                 sum+=matrix[i][j]-'0';
                 if(matrix[i][j]=='0')sum=0;
                 prefix_sum[i][j]=sum;
             }
         }
-        for(int i=0; i<row; i++){
-            max_area = max(max_area, maxi(prefix_sum[i]));
+        for(int i=0; i<prefix_sum.size(); i++){
+            max_area = max(max_area, area(prefix_sum[i]));
         }
         return max_area;
     }
