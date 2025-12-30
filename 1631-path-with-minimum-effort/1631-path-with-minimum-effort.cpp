@@ -31,7 +31,8 @@ public:
                 // Check if the path is within bounds
                 if(nrow>=0&&ncol>=0&&nrow<row&&ncol<col){
                     // Estimate the effort required
-                    int neweffort = abs(heights[r][c]-heights[nrow][ncol]);
+                    int effort = abs(heights[r][c]-heights[nrow][ncol]);
+                    int neweffort = max(d, effort);
                     // Check if the effort is less than the previous, if yes update 
                     if(neweffort<dist[nrow][ncol]){
                         dist[nrow][ncol] = neweffort;
