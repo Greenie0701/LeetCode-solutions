@@ -1,33 +1,33 @@
 class Solution {
 public:
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
-        // Initialise the graph
-        vector<vector<pair<int, int>>> graph(n);
+        // Create a graph
+        vector<vector<pair<int, int>>>  graph(n);
         for(auto f:flights){
-            // Node - {adj, price}
             graph[f[0]].push_back({f[1], f[2]});
         }
-        // Create queue with {stop, {dist, node}}
-        queue<pair<int,pair<int, int>>> q;
-        q.push({0, {0, src}});
-        // Initialise dist vector
+        // Create distance vector
         vector<int> dist(n, INT_MAX);
         dist[src]=0;
-        // Perform BFS
+        // Create queue storing pair of pair value {stops, {price, city}}
+        queue<pair<int, pair<int, int>>> q;
+        q.push({0, {0, src}});
+        // Perform the normal BFS
         while(!q.empty()){
             auto val = q.front();
             q.pop();
-            int stop=val.first;
-            int d = val.second.first;
-            int node = val.second.second;
-            // Check the no of stops
-            if(stop>k+1)continue;
-            for(auto adj:graph[node]){
-                int adjnode = adj.first;
-                int price = adj.second;
-                if(stop<k+1&&dist[adjnode]>d+price){
-                    dist[adjnode] = d+price;
-                    q.push({stop+1,{dist[adjnode], adjnode}});
+            // Get the values
+            int stops = val.first; 
+            int price = val.second.first;
+            int city  = val.second.second;
+            // check if the stops are with k+1 stops
+            if(stops>k+1)continue;
+            for(auto adj:graph[city]){
+                int p = adj.second;
+                int c = adj.first;
+                if(stops+1<=k+1&&dist[c]>price+p){
+                    dist[c]=p+price;
+                    q.push({stops+1,{dist[c], c}});
                 }
             }
         }
