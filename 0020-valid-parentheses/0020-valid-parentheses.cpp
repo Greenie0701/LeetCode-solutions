@@ -5,16 +5,19 @@ public:
         for(char c:s){
             if(c=='('||c=='{'||c=='['){
                 st.push(c);
-            }else{
-                if(st.empty())return false;
-                char ch = c;
-                char top = st.top();
-                st.pop();
-                if(ch==')' && top!='(')return false;
-                if(ch==']' && top!='[')return false;
-                if(ch=='}' && top!='{')return false;
+            }
+            else{
+                if(!st.empty()){
+                    if(c==')'&&st.top()!='(')return false;
+                    if(c=='}'&&st.top()!='{')return false;
+                    if(c==']'&&st.top()!='[')return false;
+                    st.pop();
+                }
+                else{
+                    return false;
+                } 
             }
         }
-        return(st.empty());
+        return st.empty();
     }
 };
