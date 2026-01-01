@@ -1,33 +1,33 @@
 class Solution {
 public:
     int findCheapestPrice(int n, vector<vector<int>>& flights, int src, int dst, int k) {
-        // Create a graph
-        vector<vector<pair<int, int>>>  graph(n);
+        
+        // Create the graph {dest, price}
+        vector<vector<pair<int, int>>> graph(n);
         for(auto f:flights){
             graph[f[0]].push_back({f[1], f[2]});
         }
-        // Create distance vector
-        vector<int> dist(n, INT_MAX);
-        dist[src]=0;
-        // Create queue storing pair of pair value {stops, {price, city}}
+        // Create a queue ds with the following pairs - {stops, {price, node}}
         queue<pair<int, pair<int, int>>> q;
-        q.push({0, {0, src}});
-        // Perform the normal BFS
+        q.push({0, {src, 0}});
+        // Create a dist vector
+        vector<int> dist(n, INT_MAX);
+        dist[src] = 0;
+        // Perform BFS
         while(!q.empty()){
             auto val = q.front();
             q.pop();
-            // Get the values
-            int stops = val.first; 
-            int price = val.second.first;
-            int city  = val.second.second;
-            // check if the stops are with k+1 stops
+            int stops = val.first;
+            int city = val.second.first;
+            int price = val.second.second;
+            // Check if the stops are less k+1
             if(stops>k+1)continue;
-            for(auto adj:graph[city]){
-                int p = adj.second;
-                int c = adj.first;
-                if(stops+1<=k+1&&dist[c]>price+p){
-                    dist[c]=p+price;
-                    q.push({stops+1,{dist[c], c}});
+            for(auto next:graph[city]){
+                int nextcity = next.first;
+                int p = next.second;
+                if(stops+1<=k+1&&dist[nextcity]>p+price){
+                    dist[nextcity] = p+price;
+                    q.push({stops+1, {nextcity,dist[nextcity]}});
                 }
             }
         }
