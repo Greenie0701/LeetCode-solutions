@@ -12,60 +12,53 @@
 class Solution {
 public:
 
-    TreeNode* getleftright(TreeNode* root){
-        TreeNode* prev = NULL;
-        while(root!=NULL){
-            prev = root;
-            root = root->right;
+    TreeNode* delnode(TreeNode* node){
+        if(!node->right){
+            return node->left;
         }
-        return prev;
-    }
-
-    TreeNode* delnode(TreeNode* root){
-        if(root->left==NULL){
-            return root->right;
+        if(!node->left){
+            return node->right;
         }
-        if(root->right==NULL){
-            return root->left;
+        TreeNode* leftchild = node->left;
+        TreeNode* rightchild = node->right;
+        TreeNode* leftright = node->left;
+        while(leftright->right){
+            leftright = leftright->right;
         }
-        TreeNode* leftchild = root->left;
-        TreeNode* rightchild = root->right;
-        TreeNode* leftright = getleftright(leftchild);
         leftright->right = rightchild;
         return leftchild;
     }
 
     TreeNode* deleteNode(TreeNode* root, int key) {
-        // Given tree is empty
-        if(root==NULL){
-            return root;
+        // No valid binary tree
+        if(!root){
+            return NULL;
         }
-        TreeNode* curr = root;
-        // Root is to be deleted
+        // If the root node is to be deleted
         if(root->val==key){
             return delnode(root);
         }
-        // Traverse through the tree to find the val to be deleted
-        while(curr!=NULL){
-            // Key occurs in left subtree
-            if(curr->val>key){
-                if(curr->left!=NULL&&curr->left->val==key){
-                    curr->left = delnode(curr->left);
-                    break;
-                }else{
-                    curr = curr->left;
-                }
-            }
-            // Else occurs in right subtree
-            else{
-                if(curr->right!=NULL&&curr->right->val==key){
+        // If root node is to be deleted, search the node to be deleted
+        TreeNode* curr = root;
+        while(curr){
+            if(key>curr->val){
+                if(curr->right&&curr->right->val == key){
                     curr->right = delnode(curr->right);
-                    break;
-                }else{
+                }
+                else{
                     curr = curr->right;
                 }
             }
+            else{
+                if(curr->left&&curr->left->val==key){
+                    curr->left = delnode(curr->left);
+                }
+                else{
+                    curr = curr->left;
+                }
+            }
         }
-        return root; 
+        // Return the root after deleting the node
+        return root;
     }
 };
