@@ -12,58 +12,60 @@
 class Solution {
 public:
 
-    TreeNode* getrightchild(TreeNode* node){
+    TreeNode* getleftright(TreeNode* root){
         TreeNode* prev = NULL;
-        while(node!=NULL){
-            prev = node;
-            node = node->right;
+        while(root!=NULL){
+            prev = root;
+            root = root->right;
         }
         return prev;
     }
-    
-    TreeNode* delnode(TreeNode* node){
-        if(node->left==NULL){
-            return node->right;
-        }
-        if(node->right==NULL){
-            return node->left;
-        }
-        TreeNode* rightchild = node->right;
-        TreeNode* leftchild = node->left;
-        TreeNode* leftrightchild = getrightchild(leftchild);
 
-        leftrightchild->right = rightchild;
+    TreeNode* delnode(TreeNode* root){
+        if(root->left==NULL){
+            return root->right;
+        }
+        if(root->right==NULL){
+            return root->left;
+        }
+        TreeNode* leftchild = root->left;
+        TreeNode* rightchild = root->right;
+        TreeNode* leftright = getleftright(leftchild);
+        leftright->right = rightchild;
         return leftchild;
     }
 
     TreeNode* deleteNode(TreeNode* root, int key) {
+        // Given tree is empty
         if(root==NULL){
             return root;
         }
+        TreeNode* curr = root;
+        // Root is to be deleted
         if(root->val==key){
             return delnode(root);
         }
-        TreeNode* curr = root;
+        // Traverse through the tree to find the val to be deleted
         while(curr!=NULL){
+            // Key occurs in left subtree
             if(curr->val>key){
                 if(curr->left!=NULL&&curr->left->val==key){
                     curr->left = delnode(curr->left);
                     break;
-                }
-                else{
+                }else{
                     curr = curr->left;
                 }
             }
+            // Else occurs in right subtree
             else{
                 if(curr->right!=NULL&&curr->right->val==key){
                     curr->right = delnode(curr->right);
                     break;
-                }
-                else{
+                }else{
                     curr = curr->right;
                 }
             }
         }
-        return root;
+        return root; 
     }
 };
