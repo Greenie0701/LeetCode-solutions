@@ -44,17 +44,21 @@ public:
             if(key>curr->val){
                 if(curr->right&&curr->right->val == key){
                     curr->right = delnode(curr->right);
+                    break;
                 }
                 else{
                     curr = curr->right;
+                    
                 }
             }
             else{
                 if(curr->left&&curr->left->val==key){
                     curr->left = delnode(curr->left);
+                    break;
                 }
                 else{
                     curr = curr->left;
+                
                 }
             }
         }
