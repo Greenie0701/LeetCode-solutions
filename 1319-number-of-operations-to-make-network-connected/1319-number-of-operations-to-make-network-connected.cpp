@@ -1,7 +1,6 @@
 class disjointset{
     public:
-    vector<int> parent;
-    vector<int> rank;
+    vector<int> parent, rank;
     disjointset(int n){
         parent.resize(n);
         rank.resize(n, 0);
@@ -11,13 +10,13 @@ class disjointset{
     }
     int findparent(int u){
         if(parent[u]==u)return u;
+
         return parent[u]=findparent(parent[u]);
     }
     void unionbyrank(int u, int v){
         int pu = findparent(u);
         int pv = findparent(v);
-        if(pu==pv)return;
-        // Check the rank
+        if(pu == pv)return;
         if(rank[pu]==rank[pv]){
             parent[pv]=pu;
             rank[pu]++;
@@ -34,8 +33,8 @@ class disjointset{
 class Solution {
 public:
     int makeConnected(int n, vector<vector<int>>& connections) {
-        int nums = connections.size();
-        if(n-1>nums)return -1;
+        int num_of_connections = connections.size();
+        if(n-1>num_of_connections)return -1;
         disjointset ds(n);
         for(auto c:connections){
             ds.unionbyrank(c[0], c[1]);
