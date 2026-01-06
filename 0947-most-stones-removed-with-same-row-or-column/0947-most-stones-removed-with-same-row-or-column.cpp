@@ -45,7 +45,7 @@ public:
         }
         disjointset ds(maxr+maxc+2);
         int offset = maxr+1;
-        unordered_set<int> pos;
+        unordered_map<int> pos;
         for(auto s:stones){
             ds.unionbyrank(s[0], s[1]+offset);
             pos.insert(s[0]);
