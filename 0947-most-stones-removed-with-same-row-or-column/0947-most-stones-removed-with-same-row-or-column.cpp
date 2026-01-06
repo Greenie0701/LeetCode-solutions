@@ -30,35 +30,33 @@ class disjointset{
     }
 };
 
+
+
 class Solution {
 public:
     int removeStones(vector<vector<int>>& stones) {
-        // Get the number of stones
-        int num = stones.size();
-        // Get the maximum row and col
-        int maxr=0;
-        int maxc=0;
+        int total = stones.size();
+        // Get the maxi row and col
+        int maxr = 0;
+        int maxc = 0;
         for(auto s:stones){
             maxr = max(maxr, s[0]);
             maxc = max(maxc, s[1]);
         }
-        // Initialise the disjoint set
-        int offset = maxr + 1;
-        disjointset ds(maxr + maxc + 2);
-        // Create the unordered set to track the pos of x and y axis of stones
+        disjointset ds(maxr+maxc+2);
+        int offset = maxr+1;
         unordered_set<int> pos;
-        // Perform the union on stones
         for(auto s:stones){
-            ds.unionbyrank(s[0], offset+s[1]);
+            ds.unionbyrank(s[0], s[1]+offset);
             pos.insert(s[0]);
-            pos.insert(offset+s[1]);
+            pos.insert(s[1]+offset);
         }
-        int components = 0;
-        for(int node:pos){
-            if(ds.findparent(node)==node){
-                components++;
+        int comp = 0;
+        for(int p:pos){
+            if(ds.findparent(p)==p){
+                comp++;
             }
         }
-        return num-components;
+        return total-comp;
     }
 };
