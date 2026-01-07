@@ -34,39 +34,41 @@ class disjointset{
 class Solution {
 public:
     vector<vector<string>> accountsMerge(vector<vector<string>>& accounts) {
-        unordered_map<string, int> nodemapmail;
-        disjointset ds(accounts.size());
-        // Create a disjointset mapping the mails with their corresponding owner
-        for(int i=0; i<accounts.size(); i++){
+        // Map the emails with their owner using map datastructure
+        unordered_map<string, int> ownermapmail;
+        int size = accounts.size();
+        disjointset ds(size);
+        for(int i=0; i<size; i++){
             for(int j=1; j<accounts[i].size(); j++){
                 string mail = accounts[i][j];
-                if(nodemapmail.find(mail)==nodemapmail.end()){
-                    nodemapmail[mail]=i;
+                if(ownermapmail.find(mail)==ownermapmail.end()){
+                    ownermapmail[mail]=i;
                 }
                 else{
-                    ds.unionbyrank(i, nodemapmail[mail]);
+                    ds.unionbyrank(i, ownermapmail[mail]);
                 }
             }
         }
-        // Create a list of mails with corresponding owner
-        vector<vector<string>> mergeaccounts(accounts.size());
-        for(auto acc:nodemapmail){
+        // Now merge the mail based upon their owner
+        vector<vector<string>> mergedaccounts(size);
+        for(auto acc:ownermapmail){
             int owner = ds.findparent(acc.second);
-            string ownermail = acc.first;
-            mergeaccounts[owner].push_back(ownermail);
+            string mail = acc.first;
+            mergedaccounts[owner].push_back(mail);
         }
+        // Now generate the final merged account details
         vector<vector<string>> result;
-        // Create the final merged accounts
-        for(int i=0; i<accounts.size(); i++){
-            if(mergeaccounts[i].empty())continue;
-            sort(mergeaccounts[i].begin(), mergeaccounts[i].end());
+        for(int i=0; i<size; i++){
+            if(mergedaccounts[i].empty())continue;
+            sort(mergedaccounts[i].begin(), mergedaccounts[i].end());
             vector<string> temp;
             temp.push_back(accounts[i][0]);
-            for(string s:mergeaccounts[i]){
+            for(string s:mergedaccounts[i]){
                 temp.push_back(s);
             }
             result.push_back(temp);
         }
+        // Return the final result
         return result;
     }
 };
