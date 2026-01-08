@@ -29,7 +29,7 @@ public:
             for(int j=0; j<n; j++){
                 if(i!=j&&dist[i][j]<=distanceThreshold)count++;
             }
-            if(count>0&&count<mincity){
+            if(count<mincity){
                 city = i;
                 mincity = count;
             }
