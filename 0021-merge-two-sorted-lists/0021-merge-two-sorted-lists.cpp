@@ -36,6 +36,7 @@ public:
             pq.pop();
             tail = tail->next;
         }
+        tail->next = nullptr; 
         return dummynode->next;
     }
 };
