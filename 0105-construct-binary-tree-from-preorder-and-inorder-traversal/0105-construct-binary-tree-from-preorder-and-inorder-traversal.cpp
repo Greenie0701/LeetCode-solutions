@@ -18,20 +18,15 @@ public:
         }
         return build(preorder, 0, preorder.size()-1, inorder, 0, inorder.size()-1, inmap);
     }
-
-    TreeNode* build(vector<int>& preorder, int ps, int pe, vector<int>& inorder, int is,int ie, unordered_map<int, int>& inmap){
-        if(ps>pe||is>ie){
-            return NULL;
-        }
-
+    TreeNode* build(vector<int>& preorder, int ps, int pe, vector<int>& inorder, int is, int ie, unordered_map<int, int>& inmap){
+        // Running out of elements, so return null
+        if(is>ie||ps>pe)return NULL;
+        // Create the root of the tree
+        TreeNode* root = new TreeNode(preorder[ps]);
         int rootindex = inmap[preorder[ps]];
         int left = rootindex-is;
-
-        TreeNode* root = new TreeNode(preorder[ps]);
-
-        root->left  = build(preorder, ps+1, ps+left, inorder, is, rootindex-1, inmap); 
-        root->right = build(preorder, ps+left+1, pe, inorder, rootindex+1, ie, inmap);
-
+        root->left = build(preorder, ps+1, ps+left, inorder, is, rootindex-1, inmap);
+        root->right = build(preorder, ps+left+1,pe, inorder, rootindex+1, ie, inmap);
         return root;
     }
 };
