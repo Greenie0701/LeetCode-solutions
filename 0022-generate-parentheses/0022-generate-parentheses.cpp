@@ -1,16 +1,19 @@
 class Solution {
 public:
-    void gen(int open, int close, string s, int n, vector<string>& result){
-        if(s.length()==2*n){
+    void dfs(int len, vector<string>& result, string s, int open, int close){
+        // Basecase - When the length of s is 2*n
+        if(s.length()==2*len){
             result.push_back(s);
             return;
         }
-        if(open<n)gen(open+1, close, s+'(', n, result);
-        if(close<open)gen(open, close+1, s+')', n, result);
+
+        // Check if can add open paranthesis
+        if(open<len)dfs(len, result, s+"(", open+1, close);
+        if(close<open)dfs(len, result, s+")", open, close+1);
     }
     vector<string> generateParenthesis(int n) {
         vector<string> result;
-        gen(0, 0, "", n, result);
+        dfs(n, result, "", 0, 0);
         return result;
     }
 };
