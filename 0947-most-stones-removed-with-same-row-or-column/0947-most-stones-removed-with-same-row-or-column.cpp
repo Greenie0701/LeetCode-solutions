@@ -10,13 +10,12 @@ class disjointset{
     }
     int findparent(int u){
         if(parent[u]==u)return u;
-
         return parent[u]=findparent(parent[u]);
     }
     void unionbyrank(int u, int v){
         int pu = findparent(u);
         int pv = findparent(v);
-        if(pu == pv)return;
+        if(pu==pv)return;
         if(rank[pu]==rank[pv]){
             parent[pv]=pu;
             rank[pu]++;
@@ -30,33 +29,27 @@ class disjointset{
     }
 };
 
-
-
 class Solution {
 public:
     int removeStones(vector<vector<int>>& stones) {
-        int total = stones.size();
-        // Get the maxi row and col
-        int maxr = 0;
-        int maxc = 0;
-        for(auto s:stones){
-            maxr = max(maxr, s[0]);
-            maxc = max(maxc, s[1]);
-        }
-        disjointset ds(maxr+maxc+2);
-        int offset = maxr+1;
         unordered_set<int> pos;
+        int maxr=INT_MIN;
+        int maxc=INT_MIN;
+        for(auto p:stones){
+            maxr=max(maxr,p[0]);
+            maxc=max(maxc, p[1]);
+        }
+        int offset = maxr+1;
+        disjointset ds(maxc+maxr+2);
+        int parent_stone=0;
         for(auto s:stones){
             ds.unionbyrank(s[0], s[1]+offset);
             pos.insert(s[0]);
             pos.insert(s[1]+offset);
         }
-        int comp = 0;
-        for(int p:pos){
-            if(ds.findparent(p)==p){
-                comp++;
-            }
+        for(int it:pos){
+            if(ds.findparent(it)==it)parent_stone++;
         }
-        return total-comp;
+        return stones.size()-parent_stone;
     }
 };
