@@ -2,7 +2,6 @@ class Solution {
 public:
     int INF = 1e9;
     int dfs(int index, vector<int>& coins, int amount, vector<vector<int>>& dp){
-        if(amount==0)return 0;
         if(index==0){
             if(amount%(coins[0])==0)return(dp[index][amount]=amount/(coins[0]));
             return INF;
