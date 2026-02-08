@@ -1,17 +1,24 @@
 class Solution {
 public:
-    int dfs(int i, int j, string& s){
-        if(i>j)return 0;
-        if(i==j)return 1;
-
-        if(s[i]==s[j]){
-            return 2+dfs(i+1, j-1, s);
+    int longestCommonSubsequence(string text1, string text2) {
+        int l1 = text1.size();
+        int l2 = text2.size();
+        vector<vector<int>> dp(l1+1, vector<int>(l2+1, 0));
+        for(int i=1; i<=l1; i++){
+            for(int j=1; j<=l2; j++){
+                if(text1[i-1]==text2[j-1]){
+                    dp[i][j]=1+dp[i-1][j-1];
+                }
+                else{
+                    dp[i][j]=max(dp[i-1][j], dp[i][j-1]);
+                }
+            }
         }
-        else{
-            return max(dfs(i+1, j, s), dfs(i, j-1, s));
-        }
+        return dp[l1][l2];
     }
     int longestPalindromeSubseq(string s) {
-        return dfs(0, s.length()-1, s);
+        string s2 = s;
+        reverse(s2.begin(), s2.end());
+        return longestCommonSubsequence(s, s2);
     }
 };
