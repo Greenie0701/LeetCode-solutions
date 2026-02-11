@@ -1,25 +1,15 @@
 class Solution {
 public:
-    int dfs(int i, int canbuy, vector<int>& prices, int n, vector<vector<int>>& dp){
-        if(i==n)return 0;
-        // check if you are holding a stock
-        if(dp[i][canbuy]!=-1)return dp[i][canbuy];
-        if(canbuy){
-            return dp[i][canbuy]=max(-prices[i]+dfs(i+1, 0, prices, n, dp), dfs(i+1, 1, prices, n, dp));
-        }
-        else{
-            return dp[i][canbuy]=max(prices[i]+dfs(i+1, 1, prices, n, dp), dfs(i+1, 0, prices, n, dp));
-        }
-    }
     int maxProfit(vector<int>& prices) {
-        vector<vector<int>> dp(prices.size(), vector<int>(2, -1));
-        return dfs(0, 1, prices, prices.size(), dp);
+        int n = prices.size();
+        vector<vector<int>> dp(n+1, vector<int>(2, 0));
+
+        for(int i=n-1; i>=0; i--){
+            // Buy the stock and sell it in future
+            dp[i][1] = max(-prices[i]+dp[i+1][0], dp[i+1][1]);
+            // Going to sell the stock
+            dp[i][0] = max(prices[i]+dp[i+1][1], dp[i+1][0]);
+        }
+        return dp[0][1];
     }
 };
-/*
-prices[] - ith ele in the prices array represent the stock price
-Decide either sell/buy a stock
-1 - 5 -> 4
-3 - 6 -> 3
-7
-*/
