@@ -1,17 +1,17 @@
 class Solution {
 public:
-    int dfs(int i, int left, int canbuy, vector<int>& prices, int n, vector<vector<vector<int>>>& dp){
-        // Check if there is any transaction left/No more stocks left to buy
-        if(i==n||left==0)return 0;
-        if(dp[i][canbuy][left]!=-1)return dp[i][canbuy][left];
-        // Else
-        if(canbuy){
-            return dp[i][canbuy][left]=max(-prices[i]+dfs(i+1, left, 0, prices, n, dp),dfs(i+1, left, 1, prices, n, dp));
-        }
-        else{
-            return dp[i][canbuy][left]=max(prices[i]+dfs(i+1, left-1, 1, prices, n, dp), dfs(i+1, left, 0, prices, n, dp));
-        }
-    }
+    // int dfs(int i, int left, int canbuy, vector<int>& prices, int n, vector<vector<vector<int>>>& dp){
+    //     // Check if there is any transaction left/No more stocks left to buy
+    //     if(i==n||left==0)return 0;
+    //     if(dp[i][canbuy][left]!=-1)return dp[i][canbuy][left];
+    //     // Else
+    //     if(canbuy){
+    //         return dp[i][canbuy][left]=max(-prices[i]+dfs(i+1, left, 0, prices, n, dp),dfs(i+1, left, 1, prices, n, dp));
+    //     }
+    //     else{
+    //         return dp[i][canbuy][left]=max(prices[i]+dfs(i+1, left-1, 1, prices, n, dp), dfs(i+1, left, 0, prices, n, dp));
+    //     }
+    // }
     int maxProfit(vector<int>& prices) {
         /*
         The question is all about finding the maximum profit you can
@@ -28,7 +28,20 @@ public:
            4. Can_buy -> Track whether you can buy the stock
         */
         int n = prices.size();
-        vector<vector<vector<int>>> dp(n, vector<vector<int>>(2, vector<int>(3, -1)));
-        return dfs(0, 2, 1, prices, n, dp);
+        vector<vector<vector<int>>> dp(n+1, vector<vector<int>>(3, vector<int>(2, 0)));
+        for(int i=n-1; i>=0; i--){
+            for(int left=1; left<=2; left++){
+                for(int canbuy=0; canbuy<=1; canbuy++){
+                    if(canbuy){
+                        dp[i][left][canbuy] = max(-prices[i]+dp[i+1][left][0], dp[i+1][left][1]);
+                    }
+                    else{
+                        dp[i][left][canbuy] = max(prices[i]+dp[i+1][left-1][1],dp[i+1][left][0]);
+                    }
+                }
+            }
+        }
+        return dp[0][2][1];
+        // return dfs(0, 2, 1, prices, n, dp);
     }
 };
