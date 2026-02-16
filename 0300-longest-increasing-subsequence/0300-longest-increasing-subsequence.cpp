@@ -28,22 +28,24 @@ public:
         2. You can skip the index and move to the next index
         */
         int n = nums.size();
-        vector<vector<int>> dp(n+1, vector<int>(n+1, 0));
+        vector<int> curr(n+1, 0);
+        vector<int> ahead(n+1, 0);
         // return dfs(0, -1, nums, n, dp);
         for(int i=n-1; i>=0; i--){
             for(int prev=i-1; prev>=-1; prev--){
-                int not_pick = dp[i+1][prev+1];
+                int not_pick = ahead[prev+1];
                 // Try to pick the index
                 int pick = 0;
                 // Check if the conditions are made
                 if(prev==-1||nums[prev]<nums[i]){
-                    pick=1+dp[i+1][i+1];
+                    pick=1+ahead[i+1];
                 }
                 //the max of you choice
-                dp[i][prev+1]=max(pick, not_pick);
+                curr[prev+1]=max(pick, not_pick);
             }
+            ahead = curr;
         }
-        return dp[0][0];
+        return ahead[0];
     }
 };
-
+ 
