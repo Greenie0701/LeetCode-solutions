@@ -1,4 +1,4 @@
-<h2><a href="https://leetcode.com/problems/palindrome-partitioning-ii">132. Palindrome Partitioning II</a></h2><h3>Hard</h3><hr><p>Given a string <code>s</code>, partition <code>s</code> such that every <span data-keyword="substring-nonempty">substring</span> of the partition is a <span data-keyword="palindrome-string">palindrome</span>.</p>
+<h2><a href="https://leetcode.com/problems/palindrome-partitioning-ii/">132. Palindrome Partitioning II</a></h2><h3>Hard</h3><hr><p>Given a string <code>s</code>, partition <code>s</code> such that every <span data-keyword="substring-nonempty">substring</span> of the partition is a <span data-keyword="palindrome-string">palindrome</span>.</p>
 
 <p>Return <em>the <strong>minimum</strong> cuts needed for a palindrome partitioning of</em> <code>s</code>.</p>
 
