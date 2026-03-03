@@ -10,5 +10,10 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 ## Dynamic Programming
 | Problem Name | Difficulty |
 | ------- | ------- |
+| [0091-decode-ways](https://github.com/Greenie0701/LeetCode-solutions/tree/main/0091-decode-ways/) | Medium |
 | [0198-house-robber](https://github.com/Greenie0701/LeetCode-solutions/tree/main/0198-house-robber/) | Medium |
+## String
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [0091-decode-ways](https://github.com/Greenie0701/LeetCode-solutions/tree/main/0091-decode-ways/) | Medium |
 <!---LeetCode Topics End-->
