@@ -12,8 +12,17 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 | ------- | ------- |
 | [0091-decode-ways](https://github.com/Greenie0701/LeetCode-solutions/tree/main/0091-decode-ways/) | Medium |
 | [0198-house-robber](https://github.com/Greenie0701/LeetCode-solutions/tree/main/0198-house-robber/) | Medium |
+| [0279-perfect-squares](https://github.com/Greenie0701/LeetCode-solutions/tree/main/0279-perfect-squares/) | Medium |
 ## String
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0091-decode-ways](https://github.com/Greenie0701/LeetCode-solutions/tree/main/0091-decode-ways/) | Medium |
+## Math
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [0279-perfect-squares](https://github.com/Greenie0701/LeetCode-solutions/tree/main/0279-perfect-squares/) | Medium |
+## Breadth-First Search
+| Problem Name | Difficulty |
+| ------- | ------- |
+| [0279-perfect-squares](https://github.com/Greenie0701/LeetCode-solutions/tree/main/0279-perfect-squares/) | Medium |
 <!---LeetCode Topics End-->
