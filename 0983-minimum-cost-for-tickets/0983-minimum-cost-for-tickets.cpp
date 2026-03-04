@@ -24,11 +24,11 @@ public:
             int opt1 = costs[0]+dp[i+1];
             // Option 2
             int k = i;
-            while(k<days.size()&&days[k]<days[i]+7)k++;
+            while(k<n&&days[k]<days[i]+7)k++;
             int opt2 = costs[1]+dp[k];
             // Option 3
             k = i;
-            while(k<days.size()&&days[k]<days[i]+30)k++;
+            while(k<n&&days[k]<days[i]+30)k++;
             int opt3 = costs[2]+dp[k];
             // Return the minimum you can make
             dp[i]=min(opt1, min(opt2, opt3));
