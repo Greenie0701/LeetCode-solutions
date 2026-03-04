@@ -7,12 +7,14 @@ Collection of LeetCode questions to ace the coding interview! - Created using [L
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0198-house-robber](https://github.com/Greenie0701/LeetCode-solutions/tree/main/0198-house-robber/) | Medium |
+| [0377-combination-sum-iv](https://github.com/Greenie0701/LeetCode-solutions/tree/main/0377-combination-sum-iv/) | Medium |
 ## Dynamic Programming
 | Problem Name | Difficulty |
 | ------- | ------- |
 | [0091-decode-ways](https://github.com/Greenie0701/LeetCode-solutions/tree/main/0091-decode-ways/) | Medium |
 | [0198-house-robber](https://github.com/Greenie0701/LeetCode-solutions/tree/main/0198-house-robber/) | Medium |
 | [0279-perfect-squares](https://github.com/Greenie0701/LeetCode-solutions/tree/main/0279-perfect-squares/) | Medium |
+| [0377-combination-sum-iv](https://github.com/Greenie0701/LeetCode-solutions/tree/main/0377-combination-sum-iv/) | Medium |
 ## String
 | Problem Name | Difficulty |
 | ------- | ------- |
