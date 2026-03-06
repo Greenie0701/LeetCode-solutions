@@ -1,10 +1,11 @@
 class Solution {
 public:
+    int mod = 1e9+7;
     void dfs(int i, vector<int>& arr, int n, int k){
         if(i==k)return;
 
         for(int j=1; j<n; j++){
-            arr[j]+=arr[j-1];
+            arr[j]=(arr[j]+arr[j-1])%mod;
         }
         dfs(i+1, arr, n, k);
     }
