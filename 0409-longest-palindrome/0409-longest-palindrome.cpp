@@ -7,7 +7,7 @@ public:
         for(char c:s){
             freq[c-'A']++;
         }
-        // Track the even and odd length couples
+        // Always add even length to the string, to make then palindrome
         int length = 0;
         bool has_odd=false;
         for(auto v:freq){
