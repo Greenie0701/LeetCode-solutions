@@ -1,21 +1,26 @@
 class Solution {
 public:
     int longestPalindrome(string s) {
+        // Track the frequencies of the char in the string
         vector<int> freq(128, 0);
-        bool hasOddFrequency = false;
+        // Build the freq map
         for(char c:s){
-            freq[c]++;
+            freq[c-'A']++;
         }
-        int result = 0;
-        for(auto it:freq){
-            int val = it;
-            if(val==0)continue;
-            else if(val%2==0)result+=val;
-            else{
-                result+=(val-1);
-                hasOddFrequency = true;
+        // Track the even and odd length couples
+        int length = 0;
+        bool has_odd=false;
+        for(auto v:freq){
+            if(v!=0){
+                if(v%2==0){
+                    length+=v;
+                }
+                else{
+                    length+=(v-1);
+                    has_odd=true;
+                }
             }
         }
-        return hasOddFrequency?result+1:result;
+        return has_odd?length+1:length;
     }
 };
