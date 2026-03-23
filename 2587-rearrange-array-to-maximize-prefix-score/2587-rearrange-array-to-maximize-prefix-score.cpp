@@ -11,7 +11,8 @@ public:
                 score++;
             }
             else{
-                score=0;
+                maxi = max(maxi, score);
+                break;
             }
             maxi = max(maxi, score);
         }
