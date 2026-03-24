@@ -1,25 +1,25 @@
 class Solution {
 public:
     int maxPalindromesAfterOperations(vector<string>& words) {
-        vector<int> length;
+        vector<int> len;
         vector<int> freq(26, 0);
         for(string& word:words){
-            length.push_back(word.length());
-            for(char& c:word){
-                freq[c-'a']++;
+            len.push_back(word.length());
+            for(char& ch:word){
+                freq[ch-'a']++;
             }
         }
-        int count=0;
         int pair=0;
         for(int& f:freq){
+            if(!f)continue;
             pair+=(f/2);
         }
-        sort(length.begin(), length.end());
-        for(int& l:length){
-            int needed = l/2;
-            if(pair>=needed){
-                pair-=needed;
+        int count=0;
+        sort(len.begin(), len.end());
+        for(int& l:len){
+            if(pair>=(l/2)){
                 count++;
+                pair-=(l/2);
             }
         }
         return count;
