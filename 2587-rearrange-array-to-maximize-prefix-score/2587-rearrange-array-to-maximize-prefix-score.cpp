@@ -2,17 +2,12 @@ class Solution {
 public:
     int maxScore(vector<int>& nums) {
         sort(nums.rbegin(), nums.rend());
-        int sum = 0;
-        long long prefix = 0;
+        long long prefix_sum=0;
+        int count=0;
         for(int& n:nums){
-            prefix+=n;
-            if(prefix>0){
-                sum++;
-            }
-            else{
-                break;
-            }
+            prefix_sum+=n;
+            if(prefix_sum>0)count++;
         }
-        return sum;
+        return count;
     }
 };
