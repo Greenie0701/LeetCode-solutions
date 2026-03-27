@@ -1,13 +1,13 @@
 class Solution {
 public:
-    vector<vector<int>> divideArray(vector<int>& nums, int k) {
-        int n = nums.size();
+    vector<vector<int>> divideArray(vector<int>& arr, int k) {
+        int n = arr.size();
+        if(n%3!=0)return {};
+        sort(arr.begin(), arr.end());
         vector<vector<int>> result;
-        if(n%3!=0)return result;
-        sort(nums.begin(), nums.end());
         for(int i=0; i<n; i+=3){
-            if(nums[i+2]-nums[i]<=k){
-                result.push_back({nums[i], nums[i+1], nums[i+2]});
+            if(arr[i+2]-arr[i]<=k){
+                result.push_back({arr[i], arr[i+1], arr[i+2]});
             }
             else{
                 return {};
