@@ -15,22 +15,23 @@ public:
         if(!root)return;
 
         result+=to_string(root->val);
+
         if(root->left){
             result+="(";
             dfs(root->left, result);
             result+=")";
         }
+
         if(root->right){
             if(!root->left)result+="()";
             result+="(";
             dfs(root->right, result);
             result+=")";
         }
-
     }
     string tree2str(TreeNode* root) {
         string result="";
         dfs(root, result);
-        return result;
+        return result;    
     }
 };
