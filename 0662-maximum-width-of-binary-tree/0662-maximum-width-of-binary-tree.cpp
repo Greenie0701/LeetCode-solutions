@@ -12,27 +12,22 @@
 class Solution {
 public:
     int widthOfBinaryTree(TreeNode* root) {
-        unsigned long long width = 0;
-        queue<pair<TreeNode*, unsigned long long>> q;
-        q.push({root, 0});
+        unsigned long long width=0;
+        queue<pair<unsigned long long, TreeNode*>> q;
+        q.push({0, root});
         while(!q.empty()){
-            unsigned long long first = 0;
-            unsigned long long last = 0;
-            unsigned long long min = q.front().second;
+            unsigned long long first, last;
             int size = q.size();
             for(int i=0; i<size; i++){
-                auto val = q.front();
+                auto[index, node] = q.front();
                 q.pop();
-                unsigned long long ind = val.second;
-                TreeNode* node = val.first;
-                unsigned long long curr = ind-min;
-                if(i==0)first = curr;
-                if(i==size-1)last = curr;
-                if(node->left)q.push({node->left, 2*(curr)+1});
-                if(node->right)q.push({node->right, 2*(curr)+2});
-            } 
-            width = max(width, (last-first+1));
+                if(i==0)first=index;
+                if(i==size-1)last=index;
+                if(node->left)q.push({2*(index)+1, node->left});
+                if(node->right)q.push({2*(index)+2, node->right});
+            }
+            width = max(width, last-first+1);
         }
-        return (int)width;
+        return width;
     }
 };
