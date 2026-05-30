@@ -14,14 +14,13 @@ public:
     void dfs(TreeNode* left, TreeNode* right, int depth){
         if(!left||!right)return;
         if(depth%2==0){
-            int temp = right->val;
-            right->val = left->val;
-            left->val = temp;
+            int temp = left->val;
+            left->val = right->val;
+            right->val = temp;
         }
         dfs(left->left, right->right, depth+1);
         dfs(left->right, right->left, depth+1);
     }
-
 
     TreeNode* reverseOddLevels(TreeNode* root) {
         dfs(root->left, root->right, 0);
