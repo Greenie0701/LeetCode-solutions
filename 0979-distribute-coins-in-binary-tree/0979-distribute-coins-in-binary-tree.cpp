@@ -11,7 +11,8 @@
  */
 class Solution {
 public:
-    int moves=0;
+    int moves = 0;
+
     int dfs(TreeNode* root){
         if(!root)return 0;
         int left = dfs(root->left);
@@ -20,6 +21,7 @@ public:
         moves+=abs(right);
         return root->val+left+right-1;
     }
+
     int distributeCoins(TreeNode* root) {
         dfs(root);
         return moves;
