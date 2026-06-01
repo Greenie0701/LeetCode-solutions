@@ -14,11 +14,12 @@ public:
     int count = 0;
     pair<int, int> dfs(TreeNode* root){
         if(!root)return{0, 0};
-        auto [leftsum, leftcnt] = dfs(root->left);
-        auto [rightsum, rightcnt] = dfs(root->right);
-        int sum = leftsum+rightsum+root->val;
-        int cnt = leftcnt+rightcnt+1;;
-        if(root->val==(sum/cnt))count++;
+        auto[lsum, lcnt] = dfs(root->left);
+        auto[rsum, rcnt] = dfs(root->right);
+        int sum = lsum+rsum+root->val;
+        int cnt = lcnt+rcnt+1;
+        int avg = (sum/cnt);
+        if(avg==root->val)count++;
         return{sum, cnt};
     }
     int averageOfSubtree(TreeNode* root) {
