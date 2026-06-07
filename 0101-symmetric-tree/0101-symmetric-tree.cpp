@@ -11,11 +11,12 @@
  */
 class Solution {
 public:
-    bool dfs(TreeNode* p, TreeNode* q){
-        if(!p||!q)return p==q;
-        return (p->val==q->val&&dfs(p->left, q->right)&&dfs(p->right, q->left));
+    bool dfs(TreeNode* left, TreeNode* right){
+        if(!left||!right)return left==right;
+        return(left->val==right->val&&dfs(left->left, right->right)&&dfs(left->right, right->left));
     }
+
     bool isSymmetric(TreeNode* root) {
-        return dfs(root->left, root->right);
+        return dfs(root->left, root->right); 
     }
 };
