@@ -12,33 +12,23 @@
 class Solution {
 public:
 
-
-    pair<int, TreeNode*> dfs(TreeNode* root) {
-
-        // Empty node has depth 0
-        if (!root)
-            return {0, nullptr};
-
+    pair<TreeNode*, int> dfs(TreeNode* root){
+        if(!root)return {nullptr, 0};
         auto left = dfs(root->left);
         auto right = dfs(root->right);
 
-        // Both sides have same depth
-        if (left.first == right.first) {
-
-            // Current node is answer
-            return {left.first + 1, root};
+        if(left.second==right.second){
+            return{root, left.second+1};
         }
 
-        // Left deeper
-        if (left.first > right.first) {
-            return {left.first + 1, left.second};
-        }
+        if(left.second>right.second){
+            return{left.first, left.second+1};
+        }        
 
-        // Right deeper
-        return {right.first + 1, right.second};
+        return{right.first, right.second+1};
     }
 
     TreeNode* subtreeWithAllDeepest(TreeNode* root) {
-        return dfs(root).second;
+        return dfs(root).first;
     }
 };
