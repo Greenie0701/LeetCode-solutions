@@ -11,26 +11,23 @@
  */
 class Solution {
 public:
-    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
-        unordered_map<int, int> inmap;
-        for(int i=0; i<inorder.size(); i++){
-            inmap[inorder[i]]=i;
-        }
-        return build(postorder, 0, postorder.size()-1, inorder, 0, inorder.size()-1, inmap);
+    TreeNode* dfs(vector<int>& inorder, vector<int>& postorder, int is, int ie, int ps, int pe, unordered_map<int, int>& inmap){
+        if(is>ie||ps>pe)return NULL;
+
+        int root_index = inmap[postorder[pe]];
+        TreeNode* root = new TreeNode(inorder[root_index]);
+        int left = root_index-is;
+        root->left = dfs(inorder, postorder, is, root_index-1, ps, ps+left-1, inmap);
+        root->right = dfs(inorder, postorder, root_index+1, ie, ps+left, pe-1, inmap);
+        return root;
     }
 
-    TreeNode* build(vector<int>& postorder, int ps, int pe, vector<int>& inorder, int is, int ie, unordered_map<int, int>& inmap){
-        if(ps>pe||is>ie){
-            return NULL;
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        unordered_map<int, int> inmap;
+        int n = inorder.size();
+        for(int i=0; i<n; i++){
+            inmap[inorder[i]]=i;
         }
-        int rootindex = inmap[postorder[pe]];
-        int left = rootindex-is;
-
-        TreeNode* root = new TreeNode(postorder[pe]);
-
-        root->left = build(postorder, ps, ps+left-1, inorder, is, rootindex-1, inmap);
-        root->right = build(postorder, ps+left, pe-1, inorder, rootindex+1, ie, inmap);
-
-        return root;
+        return dfs(inorder, postorder, 0, n-1, 0, n-1, inmap);
     }
 };
