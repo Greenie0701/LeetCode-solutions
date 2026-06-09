@@ -11,36 +11,31 @@
  */
 class Solution {
 public:
-    bool dfs(TreeNode* root, int& value, string& path){
+    bool findpath(TreeNode* root, int& val, string& path){
         if(!root)return false;
-
-        if(root->val==value)return true;
-
+        if(root->val==val)return true;
         path.push_back('L');
-        if(dfs(root->left, value, path)){
+        if(findpath(root->left, val, path)){
             return true;
         }
         path.pop_back();
-
         path.push_back('R');
-        if(dfs(root->right, value, path)){
+        if(findpath(root->right, val, path)){
             return true;
-        } 
-        path.pop_back();  
-
-        return false;     
+        }
+        path.pop_back();
+        return false;
     }
 
     string getDirections(TreeNode* root, int startValue, int destValue) {
-        string start_path;
-        string desc_path;
-        dfs(root, startValue, start_path);
-        dfs(root, destValue, desc_path);
+        string start, end;
+        findpath(root, startValue, start);
+        findpath(root, destValue, end);
         int i=0;
-        while(i<start_path.length()&&i<desc_path.length()&&start_path[i]==desc_path[i])i++;
+        while(i<start.length()&&i<end.length()&&start[i]==end[i])i++;
         string result;
-        result.append(start_path.length()-i, 'U');
-        result+=desc_path.substr(i);
+        result.append(start.length()-i, 'U');
+        result.append(end.substr(i));
         return result;
     }
 };
